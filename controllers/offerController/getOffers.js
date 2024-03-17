@@ -44,7 +44,10 @@ async function getOffers(req, res) {
     }
 
     const results = await Offer.find(query)
-      .populate("owner", "account.username account.avatar.secure_url")
+      .populate(
+        "owner",
+        "account.username account.avatar.secure_url account.number"
+      )
       .select(
         `owner
                 product_date
