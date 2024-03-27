@@ -24,6 +24,17 @@ Get user
 <br>
 <br>
 
+### /offer/ (GET)
+
+Get user offers
+
+| Headers        | Required | Description |
+| -------------- | -------- | ----------- |
+| `Bearer token` | Yes      | user token  |
+
+<br>
+<br>
+
 ### /user/update (PUT)
 
 Edit user
