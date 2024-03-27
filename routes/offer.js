@@ -12,10 +12,12 @@ const updateOffer = require("../controllers/offerController/updateOffer");
 const deleteOffer = require("../controllers/offerController/deleteOffer");
 const showOffer = require("../controllers/offerController/showOfferDetail");
 const getUserOffer = require("../controllers/offerController/getUserOffer");
+const limitOffersPerDay = require("../middleware/limitOfferPerDay");
 
 
 offerRoute.post("/publish", 
-    isAuthenticated, 
+    isAuthenticated,
+    limitOffersPerDay,
     fileUpload(), 
     validate(publishForm), 
     publishOffer
