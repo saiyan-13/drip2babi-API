@@ -11,6 +11,7 @@ const publishOffer = require("../controllers/offerController/publishOffer");
 const updateOffer = require("../controllers/offerController/updateOffer");
 const deleteOffer = require("../controllers/offerController/deleteOffer");
 const showOffer = require("../controllers/offerController/showOfferDetail");
+const getUserOffer = require("../controllers/offerController/getUserOffer");
 
 
 offerRoute.post("/publish", 
@@ -33,6 +34,8 @@ offerRoute.delete("/delete/:id",
 );
 
 offerRoute.get("/:id", showOffer);
+
+offerRoute.get('/',  isAuthenticated, getUserOffer);
 
 
 module.exports = offerRoute;
