@@ -10,7 +10,7 @@ const payRoute = require("./routes/payment");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://shoptondrip.netlify.app","https://shoptondrip.netlify.app", "http://localhost:5173"],
+  origin: ["https://shoptondrip.com","https://shoptondrip.netlify.app", "http://localhost:5173"],
   credentials: true,
 };
 
