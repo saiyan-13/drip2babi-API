@@ -1,7 +1,7 @@
-# Utiliser une version spécifique de Node.js pour éviter les problèmes de compatibilité
-FROM node:14
+# Use an official Node.js runtime as a parent image
+FROM node:latest
 
-# Définir le répertoire de travail dans le conteneur
+# Set the working directory in the container to /app
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
@@ -13,9 +13,8 @@ RUN npm install
 # Bundle app source inside the Docker image
 COPY . .
 
-# Exposer le port via une variable d'environnement pour plus de flexibilité
-ENV PORT=8000
-EXPOSE $PORT
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
 
-# Définir la commande pour démarrer l'application
+# Define the command to run your app using CMD which keeps the container running
 CMD [ "npm", "start" ]

@@ -6,11 +6,12 @@ const userRoute = require("./routes/user");
 const offerRoute = require("./routes/offer");
 const offersRoute = require("./routes/offers");
 const payRoute = require("./routes/payment");
+const useroffersRoute = require("./routes/useroffers");
 
 const app = express();
 
 const corsOptions = {
-  origin: ["https://shoptondrip.com","https://shoptondrip.netlify.app", "http://localhost:5173"],
+  origin: ["http://localhost:5173"],
   credentials: true,
 };
 
@@ -26,6 +27,7 @@ app.use("/user", userRoute);
 app.use("/offer", offerRoute);
 app.use("/offers", offersRoute);
 app.use("/payment", payRoute);
+app.use("/useroffers", useroffersRoute);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "This route does not exist" });
