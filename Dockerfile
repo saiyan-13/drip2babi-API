@@ -4,16 +4,14 @@ FROM node:14
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copier package.json et package-lock.json, puis installer les dépendances
-COPY package*.json./
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install any needed packages specified in package.json
 RUN npm install
 
-# Copier le reste du code source de l'application
-COPY..
+# Bundle app source inside the Docker image
+COPY . .
 
-# Exposer le port via une variable d'environnement pour plus de flexibilité
-ENV PORT=8000
-EXPOSE $PORT
-
-# Définir la commande pour démarrer l'application
-CMD [ "npm", "start" ]
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
