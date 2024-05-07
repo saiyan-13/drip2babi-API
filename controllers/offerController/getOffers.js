@@ -1,8 +1,8 @@
 const Offer = require("../../models/Offer");
 
 async function getOffers(req, res) {
-  try {
-    const { page, limit, title, priceMin, priceMax, sort } = req.query;
+ try {
+    const { page, limit, title, priceMin, priceMax, sort, userId } = req.query; // Ajout de userId ici
     // assign to constant for documentation
     const DEFAULT_PAGE_NUMBER = 1;
     const DEFAULT_PAGE_LIMIT = 12;
@@ -21,12 +21,8 @@ async function getOffers(req, res) {
       ];
     }
 
-    if (title) {
-      query.$or = [
-        { product_name: new RegExp(`${title}`, "i") },
-        { "product_details.CATEGORIE": new RegExp(`${title}`, "i") },
-      ];
-    }
+    // Correction de la duplication de la condition pour title
+    // Suppression de la deuxième condition pour éviter la duplication
 
     if (priceMin || priceMax) {
       query.product_price = {};
@@ -41,6 +37,10 @@ async function getOffers(req, res) {
       sortFilter.product_price = -1;
     } else if (sort === "price-asc") {
       sortFilter.product_price = 1;
+    }
+    // Ajout du filtrage par userId si présent
+    if (userId) {
+      query.owner = userId; // Utilisation de userId pour filtrer
     }
 
     const results = await Offer.find(query)
@@ -69,12 +69,12 @@ async function getOffers(req, res) {
       count,
       offers: results,
     });
-  } catch (err) {
+ } catch (err) {
     console.error(err);
     res
       .status(err.status || 500)
       .json({ message: err.message || "Internal Server Error" });
-  }
+ }
 }
 
 module.exports = getOffers;
