@@ -11,7 +11,7 @@ const useroffersRoute = require("./routes/useroffers");
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://shoptondrip.com"],
   credentials: true,
 };
 
@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Vinted API 👋🌏✨🌈");
+  res.send("Bienvenue sur API SHOPTONDRIP 👋🌏✨🌈");
 });
 
 app.use("/user", userRoute);
