@@ -4,8 +4,17 @@ const { updateOfferPicture } = require("../../services/cloudinary");
 async function updateOffer(req, res) {
   try {
     const id = req.params.id;
-    const { title, description, price, brand, size, condition, color, city } =
-      req.body;
+    const {
+      title,
+      description,
+      price,
+      brand,
+      size,
+      condition,
+      color,
+      city,
+      category,
+    } = req.body;
 
     const offerFound = await Offer.findById(id);
 
@@ -35,8 +44,8 @@ async function updateOffer(req, res) {
       const key = Object.keys(detail)[0];
       switch (key) {
         case "CATEGORIE":
-          if (brand) {
-            detail[key] = brand;
+          if (category) {
+            detail[key] = category;
           }
           break;
         case "MARQUE":
