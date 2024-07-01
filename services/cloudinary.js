@@ -97,14 +97,41 @@ async function deleteAvatar(userId) {
 
 async function deleteOfferPicture(userId, offerId) {
   try {
-    await cloudinary.api.delete_resources_by_prefix(
-      `api/vinted-v2/offers/${userId}/${offerId}`
+    // Supprimer toutes les ressources dans le dossier
+    const deleteResourcesResponse =
+      await cloudinary.api.delete_resources_by_prefix(
+        `api/vinted-v2/offers/${userId}/${offerId}`
+      );
+
+    console.log(
+      "Résultat de la suppression des ressources :",
+      deleteResourcesResponse
     );
-    await cloudinary.api.delete_folder(
-      `api/vinted-v2/offers/${userId}/${offerId}`
-    );
-  } catch (err) {
-    throw err;
+
+    // Vérifier s'il reste des ressources dans le dossier
+    const folderContents = await cloudinary.api.resources({
+      type: "upload",
+      prefix: `api/vinted-v2/offers/${userId}/${offerId}/`,
+      max_results: 1, // Vérifier s'il reste au moins une ressource
+    });
+
+    // Si le dossier est vide ou s'il ne contient plus de ressources, supprimer le dossier
+    if (folderContents.resources.length === 0) {
+      const deleteFolderResponse = await cloudinary.api.delete_folder(
+        `api/vinted-v2/offers/${userId}/${offerId}`
+      );
+      console.log(
+        "Résultat de la suppression du dossier :",
+        deleteFolderResponse
+      );
+    } else {
+      console.log(
+        "Le dossier contient encore des ressources. Suppression annulée."
+      );
+    }
+  } catch (error) {
+    console.error("Erreur lors de la suppression du dossier :", error);
+    throw error;
   }
 }
 
