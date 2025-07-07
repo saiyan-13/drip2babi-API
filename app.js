@@ -11,7 +11,7 @@ const useroffersRoute = require("./routes/useroffers");
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://shoptondrip.com"],
+  origin: ["http://localhost:5173", "https://shoptondrip.com", "https://shoptondrip.netlify.app"],
   credentials: true,
 };
 
